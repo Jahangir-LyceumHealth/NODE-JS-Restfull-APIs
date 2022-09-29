@@ -3,13 +3,18 @@ const Router = express.Router()
 const mysqlConnection = require("../connection")
 
 Router.get("/", (req, res)=>{
-    mysqlConnection.query("SELECT * FROM Persons", (err, rows, fields)=>{
+    mysqlConnection.query("SELECT * FROM c_Persons_X", (err, rows, fields)=>{
         if(!(err)){
             res.send(rows)
         }
         else
         {
-            console.log(err)
+            console.log('ERROR - In person[GET] API!')
+            //console.log(err)        //err.Error, err.code, err.code, err.errno, err.sqlState, err.sqlMessage, err.sql
+            //console.log('ERROR - In GET Request for /api/person! '+err.code+' >> '+err.sqlMessage)
+            //console.log(err.code)    
+            //console.log(err.sqlMessage)    
+            res.send(err)
         }
     })
 })
@@ -69,6 +74,7 @@ Router.delete("/", (req, res)=>{
     });    
     
 })
+
 
 Router.put("/", (req, res)=>{
     if(!req.body.personID){
