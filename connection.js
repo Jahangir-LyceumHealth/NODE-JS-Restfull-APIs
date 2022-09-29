@@ -1,6 +1,6 @@
 const mysql = require("mysql2")
 
-/*
+
 //LOCAL
 var mysqlConnection = mysql.createConnection({
     host: "localhost",
@@ -9,8 +9,8 @@ var mysqlConnection = mysql.createConnection({
     database: "lyceumhealth",
     multipleStatements: true
 })
-*/
 
+/*
 //AWS
 var mysqlConnection = mysql.createConnection({
     host: "node.cxpwioxnlzt2.us-east-1.rds.amazonaws.com",
@@ -19,6 +19,7 @@ var mysqlConnection = mysql.createConnection({
     database: "LyceumHealth",
     multipleStatements: true
 })
+*/
 
 mysqlConnection.connect((err)=>{
     if(!(err)){
