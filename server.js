@@ -1,7 +1,7 @@
 
 const express = require("express")
 const bodyParser = require("body-parser")
-//const mysqlConnection = require("./connection")
+const mysqlConnection = require("./connection")
 const PersonRoutes = require("./routes/person")
 var app = express()
 
