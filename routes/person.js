@@ -5,11 +5,12 @@ const mysqlConnection = require("../connection")
 Router.get("/", (req, res)=>{
     mysqlConnection.query("SELECT * FROM Persons", (err, rows, fields)=>{
         if(!(err)){
-            res.send(rows)
+            res.status(200).send(rows)
         }
         else
         {
-            console.log(err)
+            //console.log(err)
+            res.status(200).send({"message": "Empty records!", "status": 300})
         }
     })
 })
@@ -17,12 +18,12 @@ Router.get("/", (req, res)=>{
 
 Router.post("/", (req, res)=>{
     if(!req.body.FirstName){
-        res.send({"message": "Invalid request, FirstName is missing!", "status": 400})
+        res.status(200).send({"message": "Invalid request, FirstName is missing!", "status": 400})
         return
     }
     
     if(!req.body.LastName){
-        res.send({"message": "Invalid request, LastName is missing!", "status": 400})
+        res.status(200).send({"message": "Invalid request, LastName is missing!", "status": 400})
         return
     }
 
@@ -31,11 +32,11 @@ Router.post("/", (req, res)=>{
     mysqlConnection.query(insert_sql, function (err, result) {
         if(!(err)){
             console.log(result)
-            res.send({"message": "Success.", "status": 0})
+            res.status(200).send({"message": "Success.", "status": 0})
         }
         else
         {
-            res.send(err)
+            res.status(200).send(err)
         }
     });    
     
@@ -44,7 +45,7 @@ Router.post("/", (req, res)=>{
 
 Router.delete("/", (req, res)=>{
     if(!req.body.personID){
-        res.send({"message": "Invalid request, personID is missing!", "status": 400})
+        res.status(200).send({"message": "Invalid request, personID is missing!", "status": 400})
         return
     }
     
@@ -54,17 +55,17 @@ Router.delete("/", (req, res)=>{
         if(!(err)){
             console.log(result)
             if(result.affectedRows>0){
-                res.send({"message": "Success.", "status": 0})
+                res.status(200).send({"message": "Success.", "status": 0})
             }
             else
             {
-                res.send({"message": "Invalid personID!", "status": 400})
+                res.status(200).send({"message": "Invalid personID!", "status": 400})
             }
             
         }
         else
         {
-            res.send(err)
+            res.status(200).send(err)
         }
     });    
     
@@ -72,7 +73,7 @@ Router.delete("/", (req, res)=>{
 
 Router.put("/", (req, res)=>{
     if(!req.body.personID){
-        res.send({"message": "Invalid request, personID is missing!", "status": 400})
+        res.status(200).send({"message": "Invalid request, personID is missing!", "status": 400})
         return
     }
 
@@ -94,7 +95,7 @@ Router.put("/", (req, res)=>{
     }
 
     if(setColumns==''){
-        res.send({"message": "Invalid request, field is missing to update!", "status": 400})
+        res.status(200).send({"message": "Invalid request, field is missing to update!", "status": 400})
         return
     }
 
@@ -104,17 +105,17 @@ Router.put("/", (req, res)=>{
         if(!(err)){
             console.log(result)
             if(result.affectedRows>0){
-                res.send({"message": "Success.", "status": 0})
+                res.status(200).send({"message": "Success.", "status": 0})
             }
             else
             {
-                res.send({"message": "Invalid personID!", "status": 400})
+                res.status(200).send({"message": "Invalid personID!", "status": 400})
             }
             
         }
         else
         {
-            res.send(err)
+            res.status(200).send(err)
         }
     });    
     
