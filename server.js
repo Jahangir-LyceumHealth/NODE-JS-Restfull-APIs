@@ -6,7 +6,7 @@ const feedbackTypeRoutes = require("./routes/feedbackType")
 var app = express()
 
 app.use(bodyParser.json())
-app.use("/api/feedbackType", feedbackTypeRoutes)
+app.use("/api/hmp/feedbackType", feedbackTypeRoutes)
 
 
 app.get("/", (req, res)=>{
