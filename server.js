@@ -2,11 +2,11 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 const mysqlConnection = require("./connection")
-const PersonRoutes = require("./routes/person")
+const feedbackTypeRoutes = require("./routes/feedbackType")
 var app = express()
 
 app.use(bodyParser.json())
-app.use("/api/person", PersonRoutes)
+app.use("/api/hmp/feedbackType", feedbackTypeRoutes)
 
 
 app.get("/", (req, res)=>{
