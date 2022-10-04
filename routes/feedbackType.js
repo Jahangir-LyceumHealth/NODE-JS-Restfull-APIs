@@ -5,22 +5,25 @@ const currentVersion = 1
 
 
 Router.get("/", (req, res)=>{
-    if(!req.body.appID){
+    //console.log(req.query)  //http://localhost:3000/api/hmp/feedbackType?appID=001fa13837a62d2805383a39fcdc3b0c&apiVersion=1
+    //console.log(req.body)   //within body's json
+    res.header("Access-Control-Allow-Origin", "*");
+    if(!req.query.appID){
         res.status(200).send({"message": "Invalid request, appID is missing!", "status": 400})
         return
     }
 
-    if(!req.body.apiVersion){
+    if(!req.query.apiVersion){
         res.status(200).send({"message": "Invalid request, apiVersion is missing!", "status": 400})
         return
         
-    }else if(parseInt(req.body.apiVersion) != currentVersion){
+    }else if(parseInt(req.query.apiVersion) != currentVersion){
         res.status(200).send({"message": "Invalid request, apiVersion is wrong!", "status": 400})
         return        
     }
 
-    if(req.body.appID && req.body.apiVersion){
-        mysqlConnection.lyceum_emp_2.query("SELECT emp_application_info.*, emp_applications.application_id AS application_id FROM emp_application_info LEFT JOIN emp_applications ON emp_applications.pk = emp_application_info.fk_emp_application WHERE external_application_ID='"+req.body.appID+"' ", (err, rows, fields)=>{
+    if(req.query.appID && req.query.apiVersion){
+        mysqlConnection.lyceum_emp_2.query("SELECT emp_application_info.*, emp_applications.application_id AS application_id FROM emp_application_info LEFT JOIN emp_applications ON emp_applications.pk = emp_application_info.fk_emp_application WHERE external_application_ID='"+req.query.appID+"' ", (err, rows, fields)=>{
             if(!(err)){
                 console.log('lyceum_emp_2>>emp_application_info:')
                 console.log(rows)
@@ -34,8 +37,8 @@ Router.get("/", (req, res)=>{
                     let select_sql = "SELECT * FROM msp_feedback_type WHERE app_id="+req_APPID+" AND status = 1"
                     
                     //If body contain status param
-                    if(req.body.status || req.body.status=='0')
-                        select_sql = "SELECT * FROM msp_feedback_type WHERE app_id="+req_APPID+" AND status = "+parseInt(req.body.status)
+                    if(req.query.status || req.query.status=='0')
+                        select_sql = "SELECT * FROM msp_feedback_type WHERE app_id="+req_APPID+" AND status = "+parseInt(req.query.status)
 
                     mysqlConnection.lyceum_msp_2.query(select_sql, (err, rows, fields)=>{
                         if(!(err)){
