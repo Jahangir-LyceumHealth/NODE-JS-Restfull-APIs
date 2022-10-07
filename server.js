@@ -10,7 +10,7 @@ app.use("/api/hmp/feedbackType", feedbackTypeRoutes)
 
 
 app.get("/", (req, res)=>{
-    res.status(200).send('Welcome to NodeJs home page - LyceumHealth APIs')
+    res.status(200).send('Welcome to NodeJs home page - LyceumHealth APIs 20221007')
 })
 
 
